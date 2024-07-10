@@ -1,0 +1,8 @@
+{
+    "dbType": "mysql",
+    "dbHost": "localhost",
+    "dbPort": "3306",
+    "dbUsername": "jy",
+    "dbPassword": "951114Rjy",
+    "dbDatabase": "jayant"
+}
