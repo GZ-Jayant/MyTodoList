@@ -3,6 +3,7 @@
 	import Filter from "./components/Filter.svelte";
 
 	let currentFilter = "all";
+	export let apiUrl;
 </script>
 
 <main>
@@ -12,7 +13,7 @@
 			<Filter bind:currentFilter />
 		</div>
 		<div class="todo-wrapper">
-			<Todo {currentFilter} />
+			<Todo {currentFilter} {apiUrl} />
 		</div>
 	</div>
 </main>

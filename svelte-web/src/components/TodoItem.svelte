@@ -2,6 +2,7 @@
     import { createEventDispatcher } from "svelte";
 
     const dispatch = createEventDispatcher();
+    export let apiUrl;
 
     export let todo = {
         task_id: 0,
@@ -34,16 +35,13 @@
         formData.append("task_start_date", tstart);
         formData.append("task_end_date", tend);
 
-        const fetchPromise = fetch(
-            "http://192.168.50.118:8888/api/task/create",
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded",
-                },
-                body: formData,
+        const fetchPromise = fetch(apiUrl + "/task/create", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
             },
-        );
+            body: formData,
+        });
 
         fetchPromise
             .then((response) => {
@@ -56,7 +54,7 @@
                 return response.json();
             })
             .catch((error) => {
-                alert(`新增失败：${error}`);
+                console.log(`新增失败：${error}`);
             });
 
         backupTodo = { ...todo }; // 更新备份
@@ -76,16 +74,13 @@
         formData.append("task_start_date", tstart);
         formData.append("task_end_date", tend);
 
-        const fetchPromise = fetch(
-            "http://192.168.50.118:8888/api/task/update/" + todo.task_id,
-            {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded",
-                },
-                body: formData,
+        const fetchPromise = fetch(apiUrl + "/task/update/" + todo.task_id, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
             },
-        );
+            body: formData,
+        });
 
         fetchPromise
             .then((response) => {
@@ -98,7 +93,7 @@
                 return response.json();
             })
             .catch((error) => {
-                alert(`更新失败：${error}`);
+                console.log(`更新失败：${error}`);
             });
 
         backupTodo = { ...todo }; // 更新备份
@@ -109,15 +104,12 @@
             console.log("取消删除任务");
             return;
         }
-        const fetchPromise = fetch(
-            "http://192.168.50.118:8888/api/task/delete/" + todo.task_id,
-            {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded",
-                },
+        const fetchPromise = fetch(apiUrl + "/task/delete/" + todo.task_id, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
             },
-        );
+        });
 
         fetchPromise
             .then((response) => {
@@ -130,7 +122,7 @@
                 return response.json();
             })
             .catch((error) => {
-                alert(`删除失败：${error}`);
+                console.log(`删除失败：${error}`);
             });
     }
 

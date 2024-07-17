@@ -9,6 +9,8 @@
     let isAddingTask = false; // 控制按钮显示和隐藏的状态变量
     let currentPage = 1;
     const itemsPerPage = 3;
+    export let apiUrl;
+    console.log("api: " + apiUrl);
 
     /**
      * 获取当前日期，n为偏移天数
@@ -49,16 +51,13 @@
         let formData = new URLSearchParams();
         formData.append("task_status", filter);
 
-        const fetchPromise = fetch(
-            "http://192.168.50.118:8888/api/task/select",
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded",
-                },
-                body: formData,
+        const fetchPromise = fetch(apiUrl + "/task/select", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
             },
-        );
+            body: formData,
+        });
 
         fetchPromise
             .then((response) => {
@@ -71,7 +70,7 @@
                 todoList = data["taskList"];
             })
             .catch((error) => {
-                alert(`无法获取产品列表：${error}`);
+                console.log(`无法获取产品列表：${error}`);
             });
     }
 
@@ -132,7 +131,7 @@
 {/if}
 <ul class="list-container">
     {#each slicedTasks as todo}
-        <TodoItem {todo} on:changeTodo={handleTaskUpdate} />
+        <TodoItem {todo} {apiUrl} on:changeTodo={handleTaskUpdate} />
     {:else}
         <li>Nothing to do here!</li>
     {/each}
