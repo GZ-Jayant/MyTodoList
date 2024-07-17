@@ -19,7 +19,7 @@
 
 <style>
 	:global(body) {
-		background-color: #959595;
+		background-color: #d0d0d0;
 	}
 	.main-ui {
 		display: flex;
